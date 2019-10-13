@@ -1,0 +1,132 @@
+
+  
+<div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content white-text">
+               
+          <div class="row" *ngIf="showUserRegistrationScreen">
+            <div class="col s5">
+              <form #employeeForm="ngForm" (ngSubmit)="onProceedToPayment(employeeForm)">
+                 <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" placeholder="Enter full name" required>
+                    <label>Name :
+                      <label class="red-text">*</label>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" name="position" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="Enter email address">
+                    <label>Email :</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" name="office" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.office" placeholder="Enter phone number">
+                    <label>Phone :</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" name="salary" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.salary" placeholder="Enter address">
+                    <label>Address :</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <button class="btn btn-custom right" type="button" (click)="resetForm(employeeForm)">Reset</button>
+                    <button class="btn btn-custom right" type="submit" [disabled]="!employeeForm.valid">Proceed to Payment</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+           
+          </div>
+          <div class="row" *ngIf="showPaymentScreen">
+                <div class="row">
+                        <div class="col s12 m6">
+                          <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                              <span class="card-title">{{employeeService.selectedEmployee.name}}</span>
+                              <p>{{employeeService.selectedEmployee.position}}</p>
+                              <p>{{employeeService.selectedEmployee.office}}</p>
+                              <p>{{employeeService.selectedEmployee.salary}}</p>
+
+                            </div>
+                           
+                          </div>
+                        </div>
+                </div>
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="col s5">
+                  <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+                    <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+                 
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <button class="btn btn-custom right" type="button" (click)="resetForm(employeeForm)">Reset</button>
+                        <button class="btn btn-custom right" type="button" (click)="onStripePayment()">Proceed to Stripe Payment</button>
+                       
+                      </div>
+                    </div>
+                  </form>
+                  
+
+
+
+
+
+
+
+                </div>
+                
+              </div>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+
+
+  
+  <div class="row center">
+      <div class="col s12 m6 center">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Please enter your card details</span>
+            <form #checkout="ngForm" (ngSubmit)="onStripeSubmit(checkout)" class="checkout">
+                <div class="form-row">
+                  <label for="card-info">Card Number | Expiration | CVC | ZIP Code</label>
+                  <div id="card-info" #cardInfo class="card-title"></div>
+              
+                  <div id="card-errors" role="alert" *ngIf="error">{{ error }}</div>
+                </div>
+                <p>1 {{employeeService.selectedEmployee._id}}</p>
+                <p>1 {{employeeService.selectedEmployee.position}}</p>
+                <p>2 {{employeeService.selectedEmployee.office}}</p>
+                <p>3 {{employeeService.selectedEmployee.salary}}</p>
+                <div class="card-action">
+                    <button type="submit" class="btn btn-custom center">Pay $80.00</button>
+                  </div>
+  
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
